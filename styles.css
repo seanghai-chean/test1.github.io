@@ -1,96 +1,108 @@
 body {
+    font-family: Arial, sans-serif;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
-    overflow: hidden; /* Prevent scrollbars */
+    background-color: #f4f4f4;
 }
 
-.calculator {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-    width: 100%;
-    height: 100%;
-    max-width: 600px; /* Maximum width of the calculator */
-    max-height: 800px; /* Maximum height of the calculator */
-    margin: auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+h1 {
+    margin: 20px 0;
 }
 
-#display {
-    width: 100%;
-    height: 15%;
-    border: none;
-    padding: 10px;
-    font-size: 2em; /* Larger font size */
-    text-align: right;
-    box-sizing: border-box;
-    background-color: #fff;
-    border-bottom: 1px solid #ccc;
-}
-
-.buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    height: 85%;
+.calendar-controls {
+    margin-bottom: 20px;
 }
 
 button {
+    background-color: #4CAF50; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 10px 20px; /* Some padding */
+    text-align: center; /* Centered text */
+    font-size: 16px; /* Set font size */
+    cursor: pointer; /* Pointer/hand icon */
+    border-radius: 5px; /* Rounded corners */
+    margin: 0 5px; /* Margin between buttons */
+}
+
+button:focus {
+    outline: none; /* Remove default outline */
+}
+
+.calendar {
+    display: grid;
+    grid-template-rows: auto 1fr;
     width: 100%;
-    height: 100%;
-    border: none;
-    font-size: 1.5em;
-    color: #fff;
-    cursor: pointer;
-    border: 1px solid #ddd;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ddd;
+}
+
+.day {
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    border-right: 1px solid #ddd;
     transition: background-color 0.3s ease;
-    box-sizing: border-box;
+    position: relative; /* Relative positioning for absolute children */
 }
 
-button:hover {
-    opacity: 0.8;
+.day:nth-child(7n + 1) {
+    color: rgb(252, 49, 49); /* Color Mondays in red */
 }
 
-button.operator {
-    background-color: #f39c12; /* Orange for operators */
+.day.today {
+    background-color: green; /* Light red background for today */
+    color: white; /* Darker red text for today */
+    font-weight: bold;
 }
 
-button.number {
-    background-color: #3498db; /* Blue for numbers */
+.day .shift {
+    display: block; /* Display shift information on a new line */
+    font-size: 12px; /* Smaller font size for shift info */
+    color: goldenrod; /* Gray color for shift info */
+    margin-top: 5px; /* Space between date and shift info */
 }
 
-button.special {
-    background-color: #e74c3c; /* Red for special buttons like C and = */
+/* Specific color for shift value 'off' */
+.day .shift[data-shift="OFF"] {
+    color: red; /* Red color for 'off' shifts */
 }
 
-button.clear {
-    background-color: #e74c3c; /* Red for 'C' button */
+.day:last-child {
+    border-right: none;
 }
 
-button.equals {
-    background-color: #2ecc71; /* Green for '=' button */
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
 }
 
-button.add {
-    background-color: #f39c12; /* Orange for '+' button */
+.empty {
+    background-color: #f9f9f9;
+    border-right: 1px solid #ddd;
 }
 
-button.subtract {
-    background-color: #f39c12; /* Orange for '-' button */
+.empty:last-child {
+    border-right: none;
 }
 
-button.multiply {
-    background-color: #f39c12; /* Orange for '*' button */
+.day:nth-child(7n + 1) {
+    border-right: none;
 }
 
-button.divide {
-    background-color: #f39c12; /* Orange for '/' button */
+.day:nth-child(n+30) {
+    border-bottom: 1px solid #ddd;
 }
