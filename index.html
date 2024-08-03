@@ -3,29 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full Screen Calculator</title>
+    <title>Calendar</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="calculator">
-        <input type="text" id="display" disabled>
-        <div class="buttons">
-            <button class="clear" onclick="clearDisplay()">C</button>
-            <button class="operator divide" onclick="appendToDisplay('/')">/</button>
-            <button class="operator multiply" onclick="appendToDisplay('*')">*</button>
-            <button class="operator subtract" onclick="appendToDisplay('-')">-</button>
-            <button class="number" onclick="appendToDisplay('7')">7</button>
-            <button class="number" onclick="appendToDisplay('8')">8</button>
-            <button class="number" onclick="appendToDisplay('9')">9</button>
-            <button class="operator add" onclick="appendToDisplay('+')">+</button>
-            <button class="number" onclick="appendToDisplay('4')">4</button>
-            <button class="number" onclick="appendToDisplay('5')">5</button>
-            <button class="number" onclick="appendToDisplay('6')">6</button>
-            <button class="equals" onclick="calculateResult()">=</button>
-            <button class="number" onclick="appendToDisplay('1')">1</button>
-            <button class="number" onclick="appendToDisplay('2')">2</button>
-            <button class="number" onclick="appendToDisplay('3')">3</button>
-            <button class="number" onclick="appendToDisplay('0')">0</button>
+    <h1 id="month-year">August 2024</h1>
+    <div class="calendar-controls">
+        <button id="prevMonth">&lt;</button>
+        <button id="nextMonth">&gt;</button>
+    </div>
+    <div class="calendar">
+        <div class="header">
+            <div class="day">Su</div>
+            <div class="day">Mo</div>
+            <div class="day">Tu</div>
+            <div class="day">We</div>
+            <div class="day">Th</div>
+            <div class="day">Fr</div>
+            <div class="day">Sa</div>
+        </div>
+        <div class="days" id="days">
+            <!-- Days will be dynamically inserted here -->
         </div>
     </div>
     <script src="script.js"></script>
