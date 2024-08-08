@@ -100,9 +100,18 @@ button:focus {
 }
 
 .day:nth-child(7n + 1) {
-    border-right: none;
+    border-right:1px solid #ddd;
 }
 
 .day:nth-child(n+30) {
     border-bottom: 1px solid #ddd;
 }
+.shift {
+    font-weight: bold;
+    /* Add more general shift styles if needed */
+}
+
+.shift.ph {
+    color: red;
+}
+
