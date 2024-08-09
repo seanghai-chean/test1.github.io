@@ -3,24 +3,24 @@ const daysElem = document.getElementById('days');
 const prevMonthBtn = document.getElementById('prevMonth');
 const nextMonthBtn = document.getElementById('nextMonth');
 
+// Initialize current date variables
 let currentYear;
 let currentMonth;
 
-// Define the shift pattern
+// Define the shift pattern and special shifts with descriptions
 const shifts = ['OFF', 'OFF', 'E', 'E', 'L', 'L', 'N', 'N'];
 
-// Define special shifts with consistent formatting
 const specialShifts = {
-    '2024-09-24': '#PH',
-    '2024-10-01': '#PH',
-    '2024-10-02': '#PH',
-    '2024-10-03': '#PH',
-    '2024-10-15': '#PH',
-    '2024-10-29': '#PH',
-    '2024-11-09': '#PH',
-    '2024-11-14': '#PH',
-    '2024-11-15': '#PH',
-    '2024-11-16': '#PH',
+    '2024-09-24': { code: '#PH', description: 'ទិវា​ប្រកាស​រដ្ឋ​ធម្មនុញ្ញ (Constitution Day)' },
+    '2024-10-01': { code: '#PH', description: 'ពិធី​បុណ្យ​ភ្ជុំ​បិណ្ឌ (Pchum Ben Festival)' },
+    '2024-10-02': { code: '#PH', description: 'ពិធី​បុណ្យ​ភ្ជុំ​បិណ្ឌ (Pchum Ben Festival)' },
+    '2024-10-03': { code: '#PH', description: 'ពិធី​បុណ្យ​ភ្ជុំ​បិណ្ឌ (Pchum Ben Festival)ឌ' },
+    '2024-10-15': { code: '#PH', description: "ទិវា​ប្រារព្ធ​ពិធី​គោរព​ព្រះវិញ្ញាណក្ខន្ធ ព្រះករុណា​ព្រះបាទ​សម្តេច​ព្រះ នរោត្តម សីហនុ ព្រះមហាវីរក្សត្រ ព្រះ​វររាជ​បិតា​ឯករាជ្យ បូរណភាព​ទឹកដី និង​ឯកភាព​ជាតិ​ខ្មែរ (King Father's Commemoration Day)" },
+    '2024-10-29': { code: '#PH', description: "ព្រះ​រាជ​ពិធី​គ្រង​ព្រះ​បរម​រាជ​សម្បត្តិ​របស់​ ព្រះ​ករុណា​ព្រះ​បាទ​សម្តេច​ព្រះ​បរមនាថ នរោត្តម សីហមុនី ព្រះ​មហាក្សត្រ​នៃ​ព្រះរាជាណាចក្រ​កម្ពុជា (King's Coronation Day)" },
+    '2024-11-09': { code: '#PH', description: 'ពិធី​បុណ្យ​ឯករាជ្យ​ជាតិ (Independence Day)' },
+    '2024-11-14': { code: '#PH', description: 'ព្រះ​រាជ​ពិធី​បុណ្យ​អុំ​ទូក បណ្ដែត​ប្រទីប និង​សំពះ​ព្រះ​ខែ អកអំបុក (Water Festival)' },
+    '2024-11-15': { code: '#PH', description: 'ព្រះ​រាជ​ពិធី​បុណ្យ​អុំ​ទូក បណ្ដែត​ប្រទីប និង​សំពះ​ព្រះ​ខែ អកអំបុក (Water Festival)' },
+    '2024-11-16': { code: '#PH', description: 'ព្រះ​រាជ​ពិធី​បុណ្យ​អុំ​ទូក បណ្ដែត​ប្រទីប និង​សំពះ​ព្រះ​ខែ អកអំបុក (Water Festival)' },
 };
 
 // Initialize the calendar to the current date
@@ -39,7 +39,7 @@ function formatDate(date) {
     return `${year}-${month}-${day}`;
 }
 
-// Get the shift for a given date
+// Get the shift for a given date, including special shift details
 function getShift(date) {
     const formattedDate = formatDate(date);
 
@@ -51,7 +51,7 @@ function getShift(date) {
     // If no special shift, return the regular shift
     const firstDate = new Date(currentYear, 0, 1); // January 1 of the current year
     const daysSinceStart = Math.floor((date - firstDate) / (1000 * 60 * 60 * 24));
-    return shifts[daysSinceStart % shifts.length];
+    return { code: shifts[daysSinceStart % shifts.length], description: '' };
 }
 
 // Render the calendar for the given month and year
@@ -76,7 +76,11 @@ function renderCalendar(year, month) {
         const shift = getShift(cellDate);
         const dayDiv = document.createElement('div');
         dayDiv.className = `day ${isToday ? 'today' : ''}`;
-        dayDiv.innerHTML = `${day} <span class="shift ${shift === '#PH' ? 'ph' : ''}" data-shift="${shift}">${shift}</span>`;
+        dayDiv.innerHTML = `${day} <span class="shift ${shift.code === '#PH' ? 'ph' : ''}" data-shift="${shift.code}">${shift.code}</span>`;
+
+        // Add click event listener to the day cell
+        dayDiv.addEventListener('click', () => showDateInfo(cellDate));
+
         fragment.appendChild(dayDiv);
     }
 
@@ -107,6 +111,15 @@ function goToNextMonth() {
         currentMonth++;
     }
     renderCalendar(currentYear, currentMonth);
+}
+
+// Show information about the clicked date using alert
+function showDateInfo(date) {
+    const formattedDate = formatDate(date);
+    const shift = getShift(date);
+
+    // Display the information using alert
+    alert(`Date: ${formattedDate}\nShift: ${shift.code}\nDescription: ${shift.description || 'Regular Shift'}`);
 }
 
 // Attach event listeners
